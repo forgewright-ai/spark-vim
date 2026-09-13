@@ -34,7 +34,8 @@ xnoremap <M-s> :<C-u>call spark#prompt(1)<CR>
 
 The plugin binds no key by itself; Alt-s is the suggestion (Option-s on a
 Mac -- spark's Terminal profile makes Option the Meta key), any key works.
-Update with `git -C ~/.vim/pack/spark/start/spark pull`.
+Update with `git -C ~/.vim/pack/spark/start/spark pull`. The keys, and
+what to ask: `CHEATSHEET.md`.
 
 ## Options
 
