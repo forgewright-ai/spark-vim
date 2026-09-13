@@ -16,7 +16,7 @@
 "     xnoremap <M-s> :<C-u>call spark#prompt(1)<CR>
 " Switch it off with `let g:spark_disable = 1`.
 
-let s:VERSION = '1.0.0'
+let s:VERSION = '1.0.1'
 
 let s:pending = 0          " one run at a time
 let s:current = {}         " the state of the run in flight
@@ -399,7 +399,7 @@ function! s:spawn(bp, args, stdin, state) abort
     let ch = job_getchannel(job)
     call ch_sendraw(ch, a:stdin)
     call ch_close_in(ch)
-    call s:notice('spark: thinking')
+    call s:notice('spark: thinking -- ' . len(a:stdin) . ' characters')
 endfunction
 
 " --------------------------------------------------------------- kinds --
