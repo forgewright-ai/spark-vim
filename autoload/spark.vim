@@ -16,7 +16,7 @@
 "     xnoremap <M-s> :<C-u>call spark#prompt(1)<CR>
 " Switch it off with `let g:spark_disable = 1`.
 
-let s:VERSION = '1.0.1'
+let s:VERSION = '1.0.2'
 
 let s:pending = 0          " one run at a time
 let s:current = {}         " the state of the run in flight
@@ -338,6 +338,14 @@ function! s:finish(state) abort
     if state.kind ==# 'rewrite'
         if state.acc ==# state.sel.text
             call s:notice('spark: unchanged')
+            return
+        endif
+        " a rewrite that came back a fraction of the text it replaces
+        " is summary-shaped: an answer wearing a rewrite's clothes
+        " (summarize typed without the ?). Show it, do not splice it.
+        if strlen(state.sel.text) > 600 && strlen(state.acc) * 2 < strlen(state.sel.text)
+            call s:show_pane(state.bp, state.acc)
+            call s:notice('spark: far shorter than the text -- in the pane, not spliced (? asks)')
             return
         endif
         " the text it rewrote must still be there: an edit meanwhile moved
